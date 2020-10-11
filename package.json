@@ -1,7 +1,7 @@
 {
   "name": "com.3d-group.unity-simple-localization",
   "displayName": "3D Group - Localization",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "unity": "2019.4",
   "description": "Simple localization for Unity game engine.",
   "keywords": [

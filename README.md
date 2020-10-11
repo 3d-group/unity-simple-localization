@@ -1,47 +1,85 @@
-[![npm package](https://img.shields.io/npm/v/com.3d-group.unity-package-template)](https://www.npmjs.com/package/com.3d-group.unity-package-template)
+[![npm package](https://img.shields.io/npm/v/com.3d-group.unity-simple-localization)](https://www.npmjs.com/package/com.3d-group.unity-simple-localization)
+[![openupm](https://img.shields.io/npm/v/com.3d-group.unity-simple-localization?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.3d-group.unity-simple-localization/)
+![Tests](https://github.com/3d-group/unity-simple-localization/workflows/Tests/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-# Unity package template
+# Localization
 
-This is a template repository for creating new repositories for upm (Unity Package Manager) packages.
+Simple localization package for Unity game engine.
 
-Generated repository will contain:
-- Basis for [Unity package](https://docs.unity3d.com/Manual/CustomPackages.html) (package.json, folder structure, assembly definitions etc.)
-- Basis for Runtime & Editor tests (can be run straight away after script has ran and package is in some Unity projects assets folder / marked as testable)
-- Sample/ExampleUnityProject - empty Unity project for running automated github tests via [unity-ci](https://unity-ci.com/docs)
-  - **Note:** Better way for doing this would be appreciated, there is an [issue about this in unity-test-runner](https://github.com/webbertakken/unity-test-runner/issues/71)
-- package.json to publish into npm
-- Automated github action workflows to run tests on push (further documentation can be found in templates/.github/workflows)
-- Automated github action [workflow to publish into npmjs](templates/.github/workflows/on-release.yml) on publish release
-  - **Note:** If your package contains a lot of images/data or size exceeds 10mbs it might better to just publish into upm package manager / other service that is meant for storing assets and other big data. It is a good practice to check npm registry guidelines before usage.
-- Example [package.json](templates/package.json) 
-- Example [README.md](templates/README.md)
-- Example [CONTRIBUTING.md](templates/CONTRIBUTING.md), based on [Contributor Covenant](https://www.contributor-covenant.org)
-- Example [License](templates/License) (MIT)
-- Example [CODEOWNERS](templates/.github/CODEOWNERS), for further details please see [github docs on CODEOWNERS](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/about-code-owners)
+- [How to use](#how-to-use)
+- [Install](#install)
+  - [via npm](#via-npm)
+  - [via OpenUPM](#via-openupm)
+  - [via Git URL](#via-git-url)
+  - [Tests](#tests)
+- [Configuration](#configuration)
 
-**Note:** By default this repository is meant for creating open source packages. If creating closed source it might be a good idea to change license and go through generated package.json files etc.
+<!-- toc -->
 
-## Usage
+## How to use
 
-1. Create a new repository using this template
-2. Clone the new repository
-3. Run RUNME.sh (cautiously!) with bash at new repository root folder and follow instructions, if using windows [Git for Windows](https://gitforwindows.org/) provides bash and all necessary tools.
-4. Move all files (expect folders .git/ .github/ and Samples/) inside any Unity Project Assets folder. This will generate .meta files that are required by Unity. 
-5. Move files back to the original folder
+*Work In Progress*
 
-**Notes:**
-- RUNME.sh just helps replacing all tags etc. `{{REPOSITORY_NAME}}` or `{{DESCRIPTION}}` from files, if not familiar with bash scripts this step should be done manually 
-- Brief introduction on how to develop your Unity package is included in CONTRIBUTING.md
+## Install
 
-For further details, please see
- - [Github docs on creating repository from template](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template)
- - [Unity docs on creating custom packages.](https://docs.unity3d.com/Manual/CustomPackages.html)
+### via npm
 
-When your package is ready for publish, you can publish it into:
-- Open Source Unity Package Registry [openupm](https://openupm.com/)
-- [npmjs](https://docs.npmjs.com/cli/publish) package registry
-  - **Note:** If your package contains a lot of images/data or size exceeds 10mbs it might not be a good idea.
+Open `Packages/manifest.json` with your favorite text editor. Add a [scoped registry](https://docs.unity3d.com/Manual/upm-scoped.html) and following line to dependencies block:
+```json
+{
+  "scopedRegistries": [
+    {
+      "name": "npmjs",
+      "url": "https://registry.npmjs.org/",
+      "scopes": [
+        "com.3d-group"
+      ]
+    }
+  ],
+  "dependencies": {
+    "com.3d-group.unity-simple-localization": "1.0.0"
+  }
+}
+```
+Package should now appear in package manager.
+
+### via OpenUPM
+
+The package is also available on the [openupm registry](https://openupm.com/packages/com.3d-group.unity-simple-localization). You can install it eg. via [openupm-cli](https://github.com/openupm/openupm-cli).
+
+```
+openupm add com.3d-group.unity-simple-localization
+```
+
+### via Git URL
+
+Open `Packages/manifest.json` with your favorite text editor. Add following line to the dependencies block:
+```json
+{
+  "dependencies": {
+    "com.3d-group.unity-simple-localization": "https://github.com/3d-group/unity-simple-localization.git"
+  }
+}
+```
+
+### Tests
+
+The package can optionally be set as *testable*.
+In practice this means that tests in the package will be visible in the [Unity Test Runner](https://docs.unity3d.com/2017.4/Documentation/Manual/testing-editortestsrunner.html).
+
+Open `Packages/manifest.json` with your favorite text editor. Add following line **after** the dependencies block:
+```json
+{
+  "dependencies": {
+  },
+  "testables": [ "com.3d-group.unity-simple-localization" ]
+}
+```
+
+## Configuration
+
+*Work In Progress*
 
 ## License
 

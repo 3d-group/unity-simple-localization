@@ -19,7 +19,18 @@ Simple localization package for Unity game engine.
 
 ## How to use
 
-*Work In Progress*
+Create localization singleton
+
+![inspector_create_png](Documentation~/images/inspector_create.PNG)
+
+Add translations (json files as TextAssets)
+
+![inspector_create_png](Documentation~/images/inspector_config.PNG)
+
+Call from anywhere with
+```c#
+var translation = Localization.Translate("TRANSLATION_KEY");
+```
 
 ## Install
 
@@ -79,7 +90,17 @@ Open `Packages/manifest.json` with your favorite text editor. Add following line
 
 ## Configuration
 
-*Work In Progress*
+Add translations in the inspector.
+1. Add translation json files to your projects Assets folder
+2. Drag resulting TextAsset files to Localization inspector field
+
+Translation file format:
+```json
+{
+  "TRANSLATION_KEY": "translation"
+}
+```
+
 
 ## License
 

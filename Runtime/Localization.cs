@@ -6,9 +6,10 @@ using UnityEngine;
 
 namespace Group3d.Localization
 {
-    /// <remarks>
-    /// Inspired by this awesome blog post: https://medium.com/lonely-vertex-development/translating-a-unity-game-51de1aae015b
-    /// </remarks>
+    // Inspired by this awesome blog post: https://medium.com/lonely-vertex-development/translating-a-unity-game-51de1aae015b
+    /// <summary>
+    /// Localization / Translation manager.
+    /// </summary>
     public class Localization : MonoBehaviour
     {
         [SerializeField] private List<SupportedLanguage> supportedLanguages;
@@ -229,5 +230,15 @@ namespace Group3d.Localization
             Ready = true;
             loadedJsonText = null;
         }
+
+#if UNITY_EDITOR && UNITY_ASSERTIONS
+        /// <summary>
+        /// This is just to ease testing hence setting private serialized variables is rather painful.
+        /// </summary>
+        public void SetSupportedLanguages(List<SupportedLanguage> setSupportedLanguages)
+        {
+            supportedLanguages = setSupportedLanguages;
+        }
+#endif
     }
 }

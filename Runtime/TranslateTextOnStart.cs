@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,7 @@ namespace Group3d.Localization
     public class TranslateTextOnStart : MonoBehaviour
     {
 #pragma warning disable CS0649
-        [SerializeField] private string localizationKey;
+        [SerializeField] private string translationKey;
 #pragma warning restore CS0649
 
         private Text textComponent;
@@ -25,7 +26,8 @@ namespace Group3d.Localization
 
             if (hasText || hasTmpText)
             {
-                TranslateText();
+                if (hasText) textComponent.text = "";
+                if (hasTmpText) tmpTextComponent.text = "";
             }
             else
             {
@@ -33,16 +35,22 @@ namespace Group3d.Localization
             }
         }
 
-#if DEBUG
-        private void Start()
+        private IEnumerator Start()
         {
-            if (string.IsNullOrWhiteSpace(localizationKey)) Debug.LogError("Forgot to set localization key?", this);
+            if (string.IsNullOrWhiteSpace(translationKey))
+            {
+                Debug.LogError("Forgot to set localization key?", this);
+            }
+            else if (hasText || hasTmpText)
+            {
+                yield return Localization.WaitUntilReady();
+                TranslateText();
+            }
         }
-#endif
 
         public void TranslateText()
         {
-            var translation = Localization.Translate(localizationKey);
+            var translation = Localization.Translate(translationKey);
             if (translation != null)
             {
                 if (hasText) textComponent.text = translation;

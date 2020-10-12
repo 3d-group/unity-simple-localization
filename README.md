@@ -34,6 +34,10 @@ var translation = Localization.Translate("TRANSLATION_KEY");
 
 To add translations for existing Text / Text mesh pro UI components, add TranslateTextOnStart component
 
+For new text components you can use editor options like this:
+
+![inspector_create_png](Documentation~/images/inspector_create_text.PNG)
+
 ## Install
 
 ### via npm

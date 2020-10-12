@@ -1,7 +1,8 @@
 {
     "name": "Unity.com.3d-group.unity-simple-localization.Editor",
     "references": [
-        "GUID:768f309799f81d04f988956838e89471"
+        "Unity.com.3d-group.unity-simple-localization",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [
         "Editor"

@@ -26,8 +26,17 @@ namespace Group3d.Localization
 
             if (hasText || hasTmpText)
             {
-                if (hasText) textComponent.text = "";
-                if (hasTmpText) tmpTextComponent.text = "";
+                if (hasText)
+                {
+                    if (string.IsNullOrWhiteSpace(translationKey)) translationKey = textComponent.text;
+                    textComponent.text = "";
+                }
+
+                if (hasTmpText)
+                {
+                    if (string.IsNullOrWhiteSpace(translationKey)) translationKey = tmpTextComponent.text;
+                    tmpTextComponent.text = "";
+                }
             }
             else
             {
@@ -39,7 +48,7 @@ namespace Group3d.Localization
         {
             if (string.IsNullOrWhiteSpace(translationKey))
             {
-                Debug.LogError("Forgot to set localization key?", this);
+                Debug.LogError("Forgot to set translation key or text?", gameObject);
             }
             else if (hasText || hasTmpText)
             {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Group3d.Localization
@@ -158,6 +158,7 @@ namespace Group3d.Localization
                 if (lang == DefaultLanguage)
                 {
                     Debug.LogError($"Missing file for default language ({DefaultLanguage}).", this);
+                    yield break;
                 }
 
                 yield return LoadJsonLanguageData(DefaultLanguage);
@@ -166,54 +167,9 @@ namespace Group3d.Localization
             {
                 LoadedLanguageCode = lang.languageCode;
 
-                localizedDictionary = new Dictionary<string, string>();
-
-                var key = new StringBuilder();
-                var value = new StringBuilder();
-
-                int readState = 0;
-
-                // note: reads only flat json in following format: {"key1": "value", "key2": "value"}
-                // because unity json parser is bad.
-
                 try
                 {
-                    for (var i = 1; i < loadedJsonText.Length - 1; i++)
-                    {
-                        var c = loadedJsonText[i];
-                        if (c == '"' && loadedJsonText[i - 1] != '\\')
-                        {
-                            if (readState == 3)
-                            {
-                                var k = key.ToString();
-                                if (localizedDictionary.ContainsKey(k))
-                                {
-                                    Debug.LogError($"Duplicate key '<color=red>{key}</color>' while parsing translations for language '<color=red>{lang.languageCode}</color>'");
-                                }
-                                else
-                                {
-                                    localizedDictionary.Add(k, value.ToString());
-                                }
-
-                                // Reset read state.
-                                key.Length = 0;
-                                value.Length = 0;
-                                readState = 0;
-                            }
-                            else
-                            {
-                                readState++;
-                            }
-                        }
-                        else
-                        {
-                            // Skip all slashes (\) unless there is an escaped slash (\\).
-                            if (c == '\\' && loadedJsonText[i + 1] != '\\') continue;
-
-                            if (readState == 1) key.Append(c);
-                            if (readState == 3) value.Append(c);
-                        }
-                    }
+                    localizedDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(loadedJsonText);
                 }
                 catch (Exception e)
                 {

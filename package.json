@@ -11,6 +11,9 @@
     "3d-group",
     "utility"
   ],
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "2.0.0"
+  },
   "homepage": "https://github.com/3d-group/unity-simple-localization.git",
   "bugs": {
     "url": "https://github.com/3d-group/unity-simple-localization/issues"

@@ -178,7 +178,7 @@ namespace Group3d.Localization
             }
 
             // To update existing game objects in the scene.
-            foreach (var txt in FindObjectsOfType<LocalizedText>())
+            foreach (var txt in FindObjectsOfType<TranslateTextOnStart>())
             {
                 txt.TranslateText();
             }

@@ -1,6 +1,8 @@
 {
     "name": "Unity.com.3d-group.unity-simple-localization",
-    "references": [],
+    "references": [
+        "Unity.TextMeshPro"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

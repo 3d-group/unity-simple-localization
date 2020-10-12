@@ -14,9 +14,11 @@ namespace Group3d.Localization
     {
         [SerializeField] private List<SupportedLanguage> supportedLanguages;
 
-        internal static bool Ready { get; private set; }
-        internal static string LoadedLanguageCode { get; private set; }
-
+        public static bool Ready { get; private set; }
+        public static string LoadedLanguageCode { get; private set; }
+        
+        // How many seconds to load translations before timeout
+        private const float LoadingTimeoutInSeconds = 5f;
         private const string LanguageSelectionKey = "languageSelection";
 
         private static Dictionary<string, string> localizedDictionary;
@@ -130,6 +132,23 @@ namespace Group3d.Localization
             return DefaultLanguage;
         }
 
+        public static IEnumerator WaitUntilReady()
+        {
+            const float pollInterval = 0.016f;
+            var totalWaitTime = 0f;
+
+            while (!Ready && totalWaitTime < LoadingTimeoutInSeconds)
+            {
+                totalWaitTime += pollInterval;
+                yield return new WaitForSeconds(pollInterval);
+            }
+
+            if (!Ready && totalWaitTime >= LoadingTimeoutInSeconds)
+            {
+                Debug.LogError($"Timeout (of {LoadingTimeoutInSeconds:0.0}s) occured while loading translations!");
+            }
+        }
+
         private void OnDestroy()
         {
             localizedDictionary = null;
@@ -178,7 +197,7 @@ namespace Group3d.Localization
             }
 
             // To update existing game objects in the scene.
-            foreach (var txt in FindObjectsOfType<LocalizedText>())
+            foreach (var txt in FindObjectsOfType<TranslateTextOnStart>())
             {
                 txt.TranslateText();
             }

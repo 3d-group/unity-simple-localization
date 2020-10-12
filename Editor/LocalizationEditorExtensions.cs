@@ -1,5 +1,7 @@
-﻿using UnityEditor;
+﻿using TMPro;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Group3d.Localization
 {
@@ -24,7 +26,28 @@ namespace Group3d.Localization
         public static void CreateLocalizedTextGameObject(MenuCommand menuCommand)
         {
             var gameObject = new GameObject("Text");
-            gameObject.AddComponent<LocalizedText>();
+            var text = gameObject.AddComponent<Text>();
+            text.text = "TRANSLATION_KEY";
+
+            gameObject.AddComponent<TranslateTextOnStart>();
+            
+            var parent = menuCommand.context as GameObject;
+            GameObjectUtility.SetParentAndAlign(gameObject, parent);
+
+            // Register the creation in the undo system
+            Undo.RegisterCreatedObjectUndo(gameObject, "Create " + gameObject.name);
+
+            Selection.activeObject = gameObject;
+        }
+
+        [MenuItem("GameObject/UI/Text - TextMeshPro Localized", false)]
+        public static void CreateLocalizedTmpTextGameObject(MenuCommand menuCommand)
+        {
+            var gameObject = new GameObject("Text");
+            var text = gameObject.AddComponent<TextMeshProUGUI>();
+            text.text = "TRANSLATION_KEY";
+
+            gameObject.AddComponent<TranslateTextOnStart>();
 
             var parent = menuCommand.context as GameObject;
             GameObjectUtility.SetParentAndAlign(gameObject, parent);

@@ -1,6 +1,5 @@
 [![npm package](https://img.shields.io/npm/v/com.3d-group.unity-simple-localization)](https://www.npmjs.com/package/com.3d-group.unity-simple-localization)
 [![openupm](https://img.shields.io/npm/v/com.3d-group.unity-simple-localization?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.3d-group.unity-simple-localization/)
-![Tests](https://github.com/3d-group/unity-simple-localization/workflows/Tests/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 # Localization
